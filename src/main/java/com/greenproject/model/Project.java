@@ -1,15 +1,28 @@
 package com.greenproject.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "project", schema = "greenfield")
 public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "type")
     private String type;
+    @Column(name = "cost")
     private Integer cost;
+    @Column(name = "scale")
     private String scale;
+    @Column(name = "location")
     private String location;
+    @Column(name = "startdate")
     private Date startDate;
+    @Column(name="enddate")
     private Date endDate;
+    @Column(name = "isapproved")
     private Boolean isApproved;
 
     public String getScale() {
@@ -76,16 +89,4 @@ public class Project {
         isApproved = approved;
     }
 
-    public Project() {}
-
-    public Project(Integer id, String type, Integer cost, String scale, String location, Date startDate, Date endDate, Boolean isApproved) {
-        this.id = id;
-        this.type = type;
-        this.cost = cost;
-        this.scale = scale;
-        this.location = location;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.isApproved = isApproved;
-    }
 }
