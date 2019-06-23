@@ -4,6 +4,7 @@ import com.greenproject.model.Project;
 import com.greenproject.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,28 +23,31 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> listAll() {
-        List<Project> projects=new ArrayList<>();
-         projectRepository.findAll().forEach(projects :: add);
-         return projects;
+        List<Project> projects = new ArrayList<>();
+        projectRepository.findAll().forEach(projects::add);
+        return projects;
     }
 
     @Override
     public Project getById(int id) {
-        return null;
+        return projectRepository.findById(id).get();
     }
 
     @Override
     public Project saveOrUpdate(Project project) {
-        return null;
+        if(projectRepository.existsById(project.getId())){
+            projectRepository.deleteById(project.getId());
+        }
+        return projectRepository.save(project);
     }
 
     @Override
     public void delete(int id) {
-
+        projectRepository.deleteById(id);
     }
 
     @Override
-    public void addProject(Project project) {
+    public void create(Project project) {
 
     }
 }

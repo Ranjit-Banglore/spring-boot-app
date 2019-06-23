@@ -8,7 +8,7 @@ import java.util.Date;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "type")
     private String type;
@@ -20,7 +20,7 @@ public class Project {
     private String location;
     @Column(name = "startdate")
     private Date startDate;
-    @Column(name="enddate")
+    @Column(name = "enddate")
     private Date endDate;
     @Column(name = "isapproved")
     private Boolean isApproved;

@@ -10,9 +10,10 @@ public interface ProjectService {
 
     Project getById(int id);
 
+    void create(Project project);
+
     Project saveOrUpdate(Project project);
 
     void delete(int id);
 
-    void addProject(Project project);
 }
