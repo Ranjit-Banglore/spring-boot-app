@@ -1,7 +1,8 @@
-package com.greenproject.service;
+package com.greenproject.service.impl;
 
 import com.greenproject.model.Project;
 import com.greenproject.repository.ProjectRepository;
+import com.greenproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project saveOrUpdate(Project project) {
-        if(projectRepository.existsById(project.getId())){
+       /* if(projectRepository.existsById(project.getId())){
             projectRepository.deleteById(project.getId());
-        }
+        }*/
         return projectRepository.save(project);
     }
 
@@ -48,6 +49,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void create(Project project) {
-
+         projectRepository.save(project);
     }
 }
