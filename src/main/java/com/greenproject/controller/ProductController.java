@@ -3,8 +3,11 @@ package com.greenproject.controller;
 import com.greenproject.model.Product;
 import com.greenproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,23 +22,29 @@ public class ProductController {
         return productService.listAll();
     }
 
-    @RequestMapping("/{id}")
-    public Product getById(@PathVariable Integer id) {
-        return productService.getById(id);
-    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Product create(@RequestBody Product product) {
         return productService.saveOrUpdate(product);
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public void deleteById(@PathVariable int id) {
-        productService.delete(id);
-    }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void saveOrUpdateById(@RequestBody Product product) {
         productService.saveOrUpdate(product);
+    }
+
+    //@RequestMapping(value = "/publish", method = RequestMethod.GET)
+    @Scheduled(cron = "0 2 3 * * ?")
+    public void publishData(){
+        System.out.println("process started");
+        productService.addAll();
+        System.out.println("process finished");
+    }
+
+    //@Scheduled(cron = "0/5 * * * * ?")
+    public void reportCurrentTime() throws Exception {
+        System.out.println(new Date());
+        Thread.sleep(10000);
     }
 }
