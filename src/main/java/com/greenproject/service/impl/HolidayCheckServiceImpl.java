@@ -12,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class HolidayCheckServiceImpl implements HolidayCheckService {
@@ -21,6 +23,33 @@ public class HolidayCheckServiceImpl implements HolidayCheckService {
 
     @Autowired
     private ResourceLoader resourceLoader;
+
+    private List<Set<String>> checks=new ArrayList<>();
+
+    @Override
+    public List<Set<String>> getChecks() {
+        return checks;
+    }
+
+    @Override
+    public void initialiseChecks(){
+        Set<String> name= new HashSet<>();
+        Set<String> country=new HashSet<>();
+        Set<String> region=new HashSet<>();
+        Set<String> city=new HashSet<>();
+
+           listAll().forEach(holidayCheck -> {
+               name.add(holidayCheck.getName().trim().toLowerCase());
+               country.add(holidayCheck.getStadt().trim().toLowerCase());
+               region.add(holidayCheck.getRegion().trim().toLowerCase());
+               city.add(holidayCheck.getLand().trim().toLowerCase());
+           });
+
+           checks.add(0,name);
+           checks.add(1,country);
+           checks.add(2,region);
+           checks.add(3,city);
+    }
 
     @Autowired
     public HolidayCheckServiceImpl(HolidayCheckRepository holidayCheckRepository) {

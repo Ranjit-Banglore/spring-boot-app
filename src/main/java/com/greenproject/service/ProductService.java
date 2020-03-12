@@ -10,7 +10,7 @@ public interface ProductService {
 
     void create(Product product);
 
-    Product saveOrUpdate(Product product);
+    void saveOrUpdate(Product product);
 
     void addAll();
 
